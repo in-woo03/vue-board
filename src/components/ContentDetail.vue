@@ -27,7 +27,7 @@
         <b-button variant="success" @click="deleteData">삭제</b-button>
       </div>
       <div class="content-detail-comment">
-        <CommentList />
+        <CommentList :contentId="contentId"/>
       </div>
     </b-card>
   </div>
@@ -35,7 +35,7 @@
 
 <script>
 import data from "@/data";
-import CommentList from "./CommentList.vue";
+import CommentList from "./CommentList";
 
 export default {
   name: "ContentDetail",
