@@ -2,7 +2,7 @@ export default {
     User: [
       {
         user_id: 1,
-        name: 'lelana',
+        name: '하양숲',
         created_at: '2018-09-11 11:42:11'
       },
       {
@@ -20,7 +20,7 @@ export default {
       {
         content_id: 1,
         user_id: 1,
-        title: '개린이 르라나의 강의 알람표',
+        title: '강의 알람표',
         context: '아직 미정입니다.',
         created_at: '2019-01-01 13:11:42',
         updated_at: null
@@ -73,7 +73,7 @@ export default {
         subcomment_id: 1,
         comment_id: 3,
         user_id: 1,
-        context: '오 아이린님이 직접 댓글을 달아주시다니 ㅠㅠ 영광입니다!!',
+        context: '감사합니다!!',
         created_at: '2019-03-29 16:22:11',
         updated_at: null
       }

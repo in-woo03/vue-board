@@ -28,6 +28,9 @@
       </div>
       <div class="content-detail-comment">
         <CommentList :contentId="contentId"/>
+        <!-- props로 넘겨주기,  commentList 컴포넌트에 contentId props는 contentId를 보내줌.
+         props는 부모 컴포넌트가 자식 컴포넌트에게 필요한 정보를 전달해줄 때 사용함.
+         CommentList 자식 컴포넌트가 contentId라는 정보가 필요할 때 contentId를 사용함.-->
       </div>
     </b-card>
   </div>
@@ -40,7 +43,7 @@ import CommentList from "./CommentList";
 export default {
   name: "ContentDetail",
   components: {
-    CommentList
+    CommentList,
   },
   data() {
     const contentId = Number(this.$route.params.contentId);
