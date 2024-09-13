@@ -5,9 +5,22 @@
                 <div>{{name}}</div>
                 <div>{{commentObj.created_at}}</div>
             </div>
-            <div class="comment-list-item-context">{{commentObj.context}}</div>
+<!--             <div class="comment-list-item-button">
+                <b-button variant="info" @click="startEdit">수정</b-button>
+                <b-button variant="info" @click="deleteComment">삭제</b-button>
+                <b-button variant="info" @click="subCommentToggle">덧글 달기</b-button>
+            </div> -->
+
+            <div v-if="isEditing">
+                <b-form-textarea v-model="editContext" rows="4" style="width: 600px;"></b-form-textarea>
+                <br>
+                <b-button variant="success" @click="saveComment">저장</b-button>
+                <b-button variant="danger" @click="cancelEdit">취소</b-button>
+            </div>
+            <div v-else class="comment-list-item-context">{{commentObj.context}}</div>
+
             <div class="comment-list-item-button">
-                <b-button variant="info" @click="updateComment">수정</b-button>
+                <b-button variant="info" @click="startEdit">수정</b-button>
                 <b-button variant="info" @click="deleteComment">삭제</b-button>
                 <b-button variant="info" @click="subCommentToggle">덧글 달기</b-button>
             </div>
@@ -71,6 +84,8 @@ export default {
               )[0].name
             })),
             subCommentCreateToggle: false,
+            editContext: this.commentObj.context, // 수정할 내용을 위한 변수
+            isEditing: false, // 수정 모드 여부
         };
     },
     methods: {
@@ -92,14 +107,24 @@ export default {
         const commentIndex = data.Comment.findIndex(item => item.comment_id === this.commentObj.comment_id);
         if (commentIndex !== -1) {
             data.Comment.splice(commentIndex, 1); // 댓글 삭제
-            this.$emit('reloadComment');  // 부모 컴포넌트에 댓글 목록 리로드 요청
+            this.$emit('reloadComment'); // 부모 컴포넌트에 댓글 목록 리로드 요청
         }
       },
-      updateComment() {
-        this.$router.push({
-          path: `/board/free/detail/${this.contentId}`
-        })
-      }
+      startEdit() {
+            this.editContext = this.commentObj.context; // 현재 댓글 내용을 넣기
+            this.isEditing = true; // 수정 모드 활성화
+      },
+      saveComment() {
+          const commentIndex = data.Comment.findIndex(item => item.comment_id === this.commentObj.comment_id);
+          if (commentIndex !== -1) {
+              data.Comment[commentIndex].context = this.editContext; // 수정된 내용 저장
+          }
+          this.isEditing = false; // 수정 모드 비활성화
+          this.reloadSubComments(); // 댓글 목록 갱신
+      },
+      cancelEdit() {
+          this.isEditing = false; // 수정 모드 비활성화
+      },
     }
 }
 </script>
