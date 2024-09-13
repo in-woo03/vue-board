@@ -51,6 +51,7 @@ export default {
     name: 'CommentListItem', 
     props: {
         commentObj: Object,
+        contentId: Number,
     },
     components: {
       CommentCreate
@@ -88,11 +89,11 @@ export default {
         }));
       },
       deleteComment() {
-        const comment_index = data.Comment.findIndex(item => item.comment_id === this.commentId);
-        data.Comment.splice(comment_index, 1) //삭제 구현
-        this.$router.push({
-            path: `/board/free/detail/${this.contentId}` // contentId를 사용하여 경로 설정
-        })
+        const commentIndex = data.Comment.findIndex(item => item.comment_id === this.commentObj.comment_id);
+        if (commentIndex !== -1) {
+            data.Comment.splice(commentIndex, 1); // 댓글 삭제
+            this.$emit('reloadComment');  // 부모 컴포넌트에 댓글 목록 리로드 요청
+        }
       },
       updateComment() {
         this.$router.push({

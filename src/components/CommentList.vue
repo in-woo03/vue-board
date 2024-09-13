@@ -2,7 +2,7 @@
     <div>
         <div :key="item.comment_id" v-for="item in comments">
             <!-- v-for를 사용하여 comments의 배열을 하나씩 돌며 보여줌 -->
-            <CommentListItem :commentObj="item"/>
+            <CommentListItem :commentObj="item" @reloadComment="reloadComment"/>
         </div>
         <CommentCreate :contentId="contentId" :reloadComment="reloadComment"/>
         <!-- 아래 props에서 가져와 contentId 넘겨주기 -->
